@@ -1,5 +1,6 @@
 First of all, you need to setup the enviroment at lxplus
 step1:
+
 	cmsrel CMSSW_10_2_5
 	cd CMSSW_10_2_5/src
 	cmsenv
