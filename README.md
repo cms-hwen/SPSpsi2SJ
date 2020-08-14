@@ -9,10 +9,11 @@ Then, copy the SPSpsi2SJ for git to the src/:
 	git clone git@github.com:fdzyffff/SPSpsi2SJ.git
 
 There are three steps to generate the private full-SIM events.
+
 step1: GENSIM
 
 	cd psi2SJ-GENSIM
-	
+
 	There are 2 scripts (.py file), 
 		one name is: "my_4muon_qqorggtopsi2sJ.py", we put generation setting here, such as the process, the filter et al.
 		one name is: "crabConfig_MC_Production_GS.py", we use it to submit the job to crab, which mean that the "my_4muon_qqorggtopsi2sJ.py" will be run in the background in the queue.
