@@ -10,7 +10,9 @@ Then, copy the SPSpsi2SJ for git to the src/:
 
 There are three steps to generate the private full-SIM events.
 step1: GENSIM
+
 	cd psi2SJ-GENSIM
+	
 	There are 2 scripts (.py file), 
 		one name is: "my_4muon_qqorggtopsi2sJ.py", we put generation setting here, such as the process, the filter et al.
 		one name is: "crabConfig_MC_Production_GS.py", we use it to submit the job to crab, which mean that the "my_4muon_qqorggtopsi2sJ.py" will be run in the background in the queue.
@@ -37,7 +39,9 @@ step1: GENSIM
 			Output dataset:			/bbarTo4mu_13TeV_pythia8_20200701/xgao-crab_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1-GENSIM-DPSTo4mu-60d463bda7f67e1183e39467e9418b48/USER
 
 step2: DIGI
+
 	cd psi2SJ-DIGI
+
 	There are 2 scripts (.py file), 
 		one name is: "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg.py", we put DIGI setting here, no need to edit.
 		one name is: "crabConfig_crab_bbarTo4mu-DIGI.py", we use it to submit the job to crab, which mean that the "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg.py" will be run in the background in the queue.
@@ -57,7 +61,9 @@ step2: DIGI
 			Output dataset:			/bbarTo4mu_13TeV_pythia8_20200701/xgao-crab_RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1-GENSIM-DPSTo4mu-60d463bda7f67e1183e39467e9418b48/USER
 
 step3: RECO
+
 	cd psi2SJ-RECO
+
 	There are 2 scripts (.py file), 
 		one name is: "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg_2.py", we put RECO setting here, no need to edit.
 		one name is: "crabConfig_crab_bbarTo4mu-RECO.py", we use it to submit the job to crab, which mean that the "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg_2.py" will be run in the background in the queue.
