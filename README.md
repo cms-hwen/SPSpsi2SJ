@@ -4,7 +4,8 @@ step1:
 	cd CMSSW_10_2_5/src
 	cmsenv
 
-Then, copy the SPSpsi2SJ.tar to the src/ and extract it.
+Then, copy the SPSpsi2SJ for git to the src/:
+	git clone git@github.com:fdzyffff/SPSpsi2SJ.git
 
 There are three steps to generate the private full-SIM events.
 step1: GENSIM
