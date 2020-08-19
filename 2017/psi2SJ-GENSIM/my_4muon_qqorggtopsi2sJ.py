@@ -2,12 +2,12 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/BPH-RunIIFall18GS-00170-fragment.py --fileout file:BPH-RunIIFall18GS.root --mc --eventcontent RAWSIM --datatier GEN-SIM --conditions 102X_upgrade2018_realistic_v11 --beamspot Realistic25ns13TeVEarly2018Collision --step GEN,SIM --geometry DB:Extended --era Run2_2018 --python_filename BPH-RunIIFall18GS_cfg.py --no_exec --customise Configuration/DataProcessing/Utils.addMonitoring --customise_commands process.source.numberEventsInLuminosityBlock=cms.untracked.uint32(1408450) -n 10000
+# with command line options: Configuration/GenProduction/python/ThirteenTeV/RSGraviton/RSGravitonToZZ_kMpl01_M_1000_TuneCUETP8M1_13TeV_pythia8_cfi.py --fileout file:RSGravitonToZZ_kMpl01_M_1000_TuneCUETP8M1_13TeV_pythia8_GEN-SIM.root -s GEN,SIM --mc --datatier GEN-SIM --beamspot Realistic25ns13TeVEarly2017Collision --conditions auto:phase1_2017_realistic --eventcontent RAWSIM --era Run2_2017 --python_filename RSGravitonToZZ_kMpl01_M_1000_TuneCUETP8M1_13TeV_pythia8_GEN-SIM_cfg.py --no_exec -n 50
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.StandardSequences.Eras import eras
 
-process = cms.Process('SIM',eras.Run2_2018)
+process = cms.Process('SIM',eras.Run2_2017)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -16,10 +16,10 @@ process.load('FWCore.MessageService.MessageLogger_cfi')
 process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
-process.load('Configuration.StandardSequences.GeometrySimDB_cff')
+process.load('Configuration.Geometry.GeometrySimDB_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('Configuration.StandardSequences.Generator_cff')
-process.load('IOMC.EventVertexGenerators.VtxSmearedRealistic25ns13TeVEarly2018Collision_cfi')
+process.load('IOMC.EventVertexGenerators.VtxSmearedRealistic25ns13TeVEarly2017Collision_cfi')
 process.load('GeneratorInterface.Core.genFilterSummary_cff')
 process.load('Configuration.StandardSequences.SimIdeal_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
@@ -31,13 +31,6 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("EmptySource")
-
-
-#GRandom Number Generator
-from IOMC.RandomEngine.RandomServiceHelper import RandomNumberServiceHelper
-randHelper = RandomNumberServiceHelper(process.RandomNumberGeneratorService)
-randHelper.populate()
-
 
 process.options = cms.untracked.PSet(
 
@@ -63,19 +56,16 @@ process.RAWSIMoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(20971520),
-    fileName = cms.untracked.string('file:FourMu_qqorggMC.root'),
+    fileName = cms.untracked.string('file:FourMu_psi2SJ.root'),
     outputCommands = process.RAWSIMEventContent.outputCommands,
     splitLevel = cms.untracked.int32(0)
 )
-
 # Additional output definition
 
 # Other statements
-process.XMLFromDBSource.label = cms.string("Extended")
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '102X_upgrade2018_realistic_v11', '')
-
+process.GlobalTag = GlobalTag(process.GlobalTag, '94X_mc2017_realistic_v17', '')
 
 process.FourMuonFilter = cms.EDFilter("FourLepFilter", # require 4-mu in the final state
         MinPt = cms.untracked.double(1.8),
@@ -85,14 +75,28 @@ process.FourMuonFilter = cms.EDFilter("FourLepFilter", # require 4-mu in the fin
         ParticleID = cms.untracked.int32(13)
 )
 
-from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
-from GeneratorInterface.EvtGenInterface.EvtGenSetting_cff import *
+
 process.generator = cms.EDFilter("Pythia8GeneratorFilter",
-    crossSection = cms.untracked.double(1.0),
     PythiaParameters = cms.PSet(
-        pythia8CommonSettingsBlock,
-        pythia8CP5SettingsBlock,
+        parameterSets = cms.vstring(
+            'pythia8CommonSettings', 
+            'pythia8CUEP8M1Settings', 
+            'processParameters'
+        ),
+        pythia8CUEP8M1Settings = cms.vstring('Tune:pp 14', 
+            'Tune:ee 7', 
+            'MultipartonInteractions:pT0Ref=2.4024', 
+            'MultipartonInteractions:ecmPow=0.25208', 
+            'MultipartonInteractions:expPow=1.6'),
+        pythia8CommonSettings = cms.vstring('Tune:preferLHAPDF = 2', 
+            'Main:timesAllowErrors = 10000', 
+            'Check:epTolErr = 0.01', 
+            'Beams:setProductionScalesFromLHEF = off', 
+            'SLHA:keepSM = on', 
+            'SLHA:minMassSM = 1000.', 
+            'ParticleDecays:limitTau0 = on', 
+            'ParticleDecays:tau0Max = 10', 
+            'ParticleDecays:allowPhotonRadiation = on'),
         processParameters = cms.vstring(
             'Charmonium:gg2doubleccbar(3S1)[3S1(1)] = off,on,on',
             'Charmonium:qqbar2doubleccbar(3S1)[3S1(1)] = off,on,on',
@@ -110,14 +114,11 @@ process.generator = cms.EDFilter("Pythia8GeneratorFilter",
             'HadronLevel:all = on',
             'HadronLevel:Hadronize = on',
             'HadronLevel:Decay = on',
-        ),
-        parameterSets = cms.vstring(
-            'pythia8CommonSettings', 
-            'pythia8CP5Settings', 
-            'processParameters'
-        ),  
+        )
     ),
     comEnergy = cms.double(13000.0),
+    crossSection = cms.untracked.double(1.0),
+    filterEfficiency = cms.untracked.double(1),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     pythiaPylistVerbosity = cms.untracked.int32(1)
@@ -139,21 +140,11 @@ from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 # filter all path with the production filter sequence
 for path in process.paths:
-    getattr(process,path)._seq = process.ProductionFilterSequence * getattr(process,path)._seq 
+	getattr(process,path)._seq = process.ProductionFilterSequence * getattr(process,path)._seq 
 
-# customisation of the process.
-
-# Automatic addition of the customisation function from Configuration.DataProcessing.Utils
-from Configuration.DataProcessing.Utils import addMonitoring 
-
-#call to customisation function addMonitoring imported from Configuration.DataProcessing.Utils
-process = addMonitoring(process)
-
-# End of customisation functions
 
 # Customisation from command line
 
-process.source.numberEventsInLuminosityBlock=cms.untracked.uint32(1408450)
 # Add early deletion of temporary data products to reduce peak memory need
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)

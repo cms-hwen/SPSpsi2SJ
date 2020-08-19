@@ -1,8 +1,8 @@
 First of all, you need to setup the enviroment at lxplus
 step1:
 
-	cmsrel CMSSW_10_2_5
-	cd CMSSW_10_2_5/src
+	cmsrel CMSSW_9_4_7
+	cd CMSSW_9_4_7/src
 	cmsenv
 
 Then, copy the SPSpsi2SJ for git to the src/:
@@ -44,8 +44,8 @@ step2: DIGI
 	cd psi2SJ-DIGI
 
 	There are 2 scripts (.py file), 
-		one name is: "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg.py", we put DIGI setting here, no need to edit.
-		one name is: "crabConfig_crab_bbarTo4mu-DIGI.py", we use it to submit the job to crab, which mean that the "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg.py" will be run in the background in the queue.
+		one name is: "psi2SJ_13TeV_pythia8_FULLSIM_GEN_SIM_RAW_cfg.py", we put DIGI setting here, no need to edit.
+		one name is: "crabConfig_crab_bbarTo4mu-DIGI.py", we use it to submit the job to crab, which mean that the "psi2SJ_13TeV_pythia8_FULLSIM_GEN_SIM_RAW_cfg.py" will be run in the background in the queue.
 
 		1) edit the "crabConfig_crab_bbarTo4mu-DIGI.py, change the "config.Data.inputDataset" to your Output dataset, which can be got in step1-5
 		2) change the number of input files and output parameters as you preference:
@@ -66,8 +66,8 @@ step3: RECO
 	cd psi2SJ-RECO
 
 	There are 2 scripts (.py file), 
-		one name is: "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg_2.py", we put RECO setting here, no need to edit.
-		one name is: "crabConfig_crab_bbarTo4mu-RECO.py", we use it to submit the job to crab, which mean that the "BPH-RunIIAutumn18DRPremix-01798_DPS_cfg_2.py" will be run in the background in the queue.
+		one name is: "psi2SJ_13TeV_pythia8_FULLSIM_GEN_SIM_RAW_RECO_cfg.py", we put RECO setting here, no need to edit.
+		one name is: "crabConfig_crab_bbarTo4mu-RECO.py", we use it to submit the job to crab, which mean that the "psi2SJ_13TeV_pythia8_FULLSIM_GEN_SIM_RAW_RECO_cfg.py" will be run in the background in the queue.
 
 		1) edit the "crabConfig_crab_bbarTo4mu-RECO.py", change the "config.Data.inputDataset" to your Output dataset, which can be got in step2-5
 		2) change the number of input files and output parameters as you preference:

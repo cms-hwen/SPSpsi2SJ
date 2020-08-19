@@ -9,7 +9,7 @@ config.General.transferOutputs = True
 config.General.transferLogs=True
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'BPH-RunIIAutumn18DRPremix-01798_DPS_cfg.py'
+config.JobType.psetName = 'psi2SJ_13TeV_pythia8_FULLSIM_GEN_SIM_RAW_cfg.py'
 config.JobType.maxMemoryMB = 5000
 config.JobType.allowUndistributedCMSSW = True
 config.Data.inputDBS = 'phys03'

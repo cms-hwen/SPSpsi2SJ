@@ -2,7 +2,7 @@ from CRABClient.UserUtilities import config
 #from CRABClient import getUsername
 config = config()
 
-config.General.requestName = 'RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1-GENSIM-psi2SJto4mu-v2'
+config.General.requestName = '94X_upgrade2017_realistic_v17-v1-GENSIM-psi2SJto4mu'
 config.General.workArea = 'crab_psi2SJ-GENSIM-v2'
 config.General.transferOutputs = True
 config.General.transferLogs = False
@@ -28,4 +28,4 @@ config.Data.allowNonValidInputDataset = True
 config.Site.storageSite = 'T2_BE_IIHE'
 
 config.User.voGroup     = 'becms'
-config.Data.outLFNDirBase = '/store/user/xgao/samples-20200813-DiJpsi/psi2SJ'
+config.Data.outLFNDirBase = '/store/user/xgao/samples-20200813-DiJpsi/psi2SJ-2017-GEN'
